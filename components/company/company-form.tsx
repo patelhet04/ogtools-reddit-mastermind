@@ -116,7 +116,8 @@ function PersonaCard({ persona, onUpdate, onDelete }: PersonaCardProps) {
                 onUpdate({ ...persona, username: e.target.value })
               }
               className="h-8 font-medium border-0 p-0 focus-visible:ring-0"
-              placeholder="Username"
+              placeholder="Username *"
+              required
             />
           </div>
         </div>
@@ -239,6 +240,29 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validation
+    if (!formData.name.trim()) {
+      toast.error("Company name is required");
+      return;
+    }
+    if (!formData.description.trim()) {
+      toast.error("Company description is required");
+      return;
+    }
+    if (formData.personas.length < 2) {
+      toast.error("At least 2 personas are required");
+      return;
+    }
+    if (formData.personas.some((p) => !p.username.trim())) {
+      toast.error("All personas must have a username");
+      return;
+    }
+    if (formData.subreddits.length < 1) {
+      toast.error("At least 1 subreddit is required");
+      return;
+    }
+
     onSave({
       name: formData.name,
       description: formData.description,
@@ -262,7 +286,7 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
         <div className="space-y-4">
           <div>
             <Label htmlFor="name" className="text-sm text-muted-foreground">
-              Company Name
+              Company Name <span className="text-red-500">*</span>
             </Label>
             <Input
               id="name"
@@ -280,7 +304,7 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
               htmlFor="description"
               className="text-sm text-muted-foreground"
             >
-              Description
+              Description <span className="text-red-500">*</span>
             </Label>
             <Textarea
               id="description"
@@ -291,6 +315,7 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
               placeholder="Brief description of your company..."
               className="rounded-md mt-1 resize-none"
               rows={3}
+              required
             />
           </div>
           <div>
@@ -341,7 +366,9 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
       {/* Personas */}
       <section className="bg-card rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Personas</h2>
+          <h2 className="text-lg font-semibold">
+            Personas <span className="text-red-500 text-sm font-normal">(min. 2 required)</span>
+          </h2>
           <Button
             type="button"
             variant="outline"
@@ -371,7 +398,9 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
 
       {/* Subreddits */}
       <section className="bg-card rounded-2xl p-6 shadow-sm">
-        <h2 className="text-lg font-semibold mb-4">Target Subreddits</h2>
+        <h2 className="text-lg font-semibold mb-4">
+          Target Subreddits <span className="text-red-500 text-sm font-normal">(min. 1 required)</span>
+        </h2>
         <PillInput
           label="Subreddits"
           values={formData.subreddits}
