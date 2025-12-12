@@ -1,0 +1,240 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* 
+   * Sophisticated Forest & Ivory Palette
+   * Deep forest green primary - uncommon, evokes growth/success
+   * Warm ivory background - easy on eyes for long sessions
+   * Clean, professional, memorable
+   */
+
+  /* Warm ivory background - not stark white, not yellow */
+  --background: hsl(48 35% 97%);
+  --foreground: hsl(220 15% 18%);
+
+  /* Cards with subtle warmth */
+  --card: hsl(48 40% 99%);
+  --card-foreground: hsl(220 15% 18%);
+
+  /* Popovers */
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(220 15% 18%);
+
+  /* Deep Forest Green Primary - sophisticated, growth-oriented */
+  --primary: hsl(158 45% 32%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  /* Soft sage secondary */
+  --secondary: hsl(90 12% 92%);
+  --secondary-foreground: hsl(220 12% 25%);
+
+  /* Warm greige muted tones */
+  --muted: hsl(45 10% 93%);
+  --muted-foreground: hsl(220 8% 46%);
+
+  /* Subtle green-tinted accent */
+  --accent: hsl(90 15% 94%);
+  --accent-foreground: hsl(220 12% 25%);
+
+  /* Destructive - warm red, not harsh */
+  --destructive: hsl(4 70% 50%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  /* Borders - warm gray with hint of green */
+  --border: hsl(80 8% 88%);
+  --input: hsl(80 8% 88%);
+  --ring: hsl(158 45% 32%);
+
+  /* Charts - harmonious natural palette */
+  --chart-1: hsl(158 45% 32%);
+  --chart-2: hsl(200 55% 45%);
+  --chart-3: hsl(35 75% 55%);
+  --chart-4: hsl(280 35% 55%);
+  --chart-5: hsl(350 55% 55%);
+
+  --radius: 0.5rem;
+
+  /* Sidebar */
+  --sidebar: hsl(48 30% 98%);
+  --sidebar-foreground: hsl(220 15% 18%);
+  --sidebar-primary: hsl(158 45% 32%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(90 12% 94%);
+  --sidebar-accent-foreground: hsl(220 12% 25%);
+  --sidebar-border: hsl(80 10% 90%);
+  --sidebar-ring: hsl(158 45% 32%);
+
+  /* Success - bright teal */
+  --success: hsl(168 65% 38%);
+  --success-foreground: hsl(0 0% 100%);
+
+  /* Warning - warm amber */
+  --warning: hsl(42 90% 50%);
+  --warning-foreground: hsl(30 50% 15%);
+}
+
+.dark {
+  /* 
+   * Dark mode - Deep charcoal with forest undertones
+   * Not pure black, has subtle warmth
+   */
+
+  --background: hsl(200 12% 9%);
+  --foreground: hsl(45 15% 92%);
+
+  /* Elevated cards */
+  --card: hsl(200 10% 12%);
+  --card-foreground: hsl(45 15% 92%);
+
+  /* Popovers */
+  --popover: hsl(200 10% 13%);
+  --popover-foreground: hsl(45 15% 92%);
+
+  /* Forest green - brighter in dark mode for visibility */
+  --primary: hsl(158 50% 45%);
+  --primary-foreground: hsl(200 12% 9%);
+
+  /* Secondary */
+  --secondary: hsl(200 10% 18%);
+  --secondary-foreground: hsl(45 12% 85%);
+
+  /* Muted */
+  --muted: hsl(200 10% 15%);
+  --muted-foreground: hsl(45 8% 55%);
+
+  /* Accent */
+  --accent: hsl(200 10% 18%);
+  --accent-foreground: hsl(45 12% 85%);
+
+  /* Destructive */
+  --destructive: hsl(4 65% 48%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  /* Borders */
+  --border: hsl(200 10% 20%);
+  --input: hsl(200 10% 20%);
+  --ring: hsl(158 50% 45%);
+
+  /* Charts */
+  --chart-1: hsl(158 50% 45%);
+  --chart-2: hsl(200 55% 55%);
+  --chart-3: hsl(35 75% 60%);
+  --chart-4: hsl(280 40% 60%);
+  --chart-5: hsl(350 55% 60%);
+
+  /* Sidebar */
+  --sidebar: hsl(200 12% 10%);
+  --sidebar-foreground: hsl(45 15% 92%);
+  --sidebar-primary: hsl(158 50% 45%);
+  --sidebar-primary-foreground: hsl(200 12% 9%);
+  --sidebar-accent: hsl(200 10% 18%);
+  --sidebar-accent-foreground: hsl(45 12% 85%);
+  --sidebar-border: hsl(200 10% 18%);
+  --sidebar-ring: hsl(158 50% 45%);
+
+  /* Success/Warning */
+  --success: hsl(168 55% 42%);
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(42 85% 55%);
+  --warning-foreground: hsl(30 50% 12%);
+}
+
+@theme inline {
+  --font-sans: var(--font-ui), system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100dvh;
+  }
+  ::selection {
+    @apply bg-primary/15 text-foreground;
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(80 8% 70% / 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(80 8% 60% / 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(200 10% 35% / 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(200 10% 45% / 0.6);
+}
