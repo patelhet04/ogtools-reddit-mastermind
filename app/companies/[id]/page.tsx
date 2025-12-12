@@ -6,6 +6,20 @@ import { Sidebar } from "@/components/layout/sidebar"
 import { MobileNav } from "@/components/layout/mobile-nav"
 import { Header } from "@/components/layout/header"
 import { CompanyForm } from "@/components/company/company-form"
+import { Button } from "@/components/ui/button"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Trash2 } from "lucide-react"
+import { toast } from "sonner"
 import type { CompanyUpsertPayload, UICompany } from "@/lib/types"
 import { apiGet, apiSend } from "@/lib/api"
 
@@ -16,6 +30,7 @@ export default function CompanyDetailPage() {
 
   const [company, setCompany] = useState<UICompany | null>(null)
   const [loading, setLoading] = useState(true)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     apiGet<UICompany>(`/api/companies/${id}`)
@@ -26,6 +41,18 @@ export default function CompanyDetailPage() {
   const handleSave = async (updatedCompany: CompanyUpsertPayload) => {
     await apiSend(`/api/companies/${id}`, "PUT", updatedCompany)
     router.push("/companies")
+  }
+
+  const handleDelete = async () => {
+    setDeleting(true)
+    try {
+      await apiSend(`/api/companies/${id}`, "DELETE")
+      toast.success("Company deleted successfully")
+      router.push("/companies")
+    } catch (error) {
+      toast.error("Failed to delete company")
+      setDeleting(false)
+    }
   }
 
   if (loading) {
@@ -59,9 +86,37 @@ export default function CompanyDetailPage() {
         <Header title={company.name} />
 
         <div className="p-4 lg:p-6">
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Edit Company</h2>
-            <p className="text-muted-foreground">Update your company profile and settings.</p>
+          <div className="flex items-start justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-semibold text-foreground">Edit Company</h2>
+              <p className="text-muted-foreground">Update your company profile and settings.</p>
+            </div>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300">
+                  <Trash2 className="w-4 h-4 mr-1.5" />
+                  Delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Company</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete <strong>{company.name}</strong>? This will also delete all associated personas, subreddits, and content calendars. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDelete}
+                    disabled={deleting}
+                    className="bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    {deleting ? "Deleting..." : "Delete Company"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
 
           <CompanyForm company={company} onSave={handleSave} />

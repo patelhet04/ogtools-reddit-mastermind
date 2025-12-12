@@ -118,4 +118,31 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   return NextResponse.json(company);
 }
 
+export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
+  // Delete related data first (cascading)
+  await supabaseServer.from("personas").delete().eq("company_id", id);
+  await supabaseServer.from("subreddits").delete().eq("company_id", id);
+  
+  // Delete any calendars and their items for this company
+  const { data: calendars } = await supabaseServer
+    .from("content_calendars")
+    .select("id")
+    .eq("company_id", id);
+  
+  if (calendars && calendars.length > 0) {
+    const calendarIds = calendars.map((c) => c.id);
+    await supabaseServer.from("calendar_items").delete().in("calendar_id", calendarIds);
+    await supabaseServer.from("content_calendars").delete().eq("company_id", id);
+  }
+
+  // Finally delete the company
+  const { error } = await supabaseServer.from("companies").delete().eq("id", id);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ success: true });
+}

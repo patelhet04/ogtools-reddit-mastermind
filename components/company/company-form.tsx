@@ -367,7 +367,10 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
       <section className="bg-card rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">
-            Personas <span className="text-red-500 text-sm font-normal">(min. 2 required)</span>
+            Personas{" "}
+            <span className="text-red-500 text-sm font-normal">
+              (min. 2 required)
+            </span>
           </h2>
           <Button
             type="button"
@@ -399,7 +402,10 @@ export function CompanyForm({ company, onSave }: CompanyFormProps) {
       {/* Subreddits */}
       <section className="bg-card rounded-2xl p-6 shadow-sm">
         <h2 className="text-lg font-semibold mb-4">
-          Target Subreddits <span className="text-red-500 text-sm font-normal">(min. 1 required)</span>
+          Target Subreddits{" "}
+          <span className="text-red-500 text-sm font-normal">
+            (min. 1 required)
+          </span>
         </h2>
         <PillInput
           label="Subreddits"
