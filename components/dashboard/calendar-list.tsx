@@ -129,7 +129,10 @@ export function CalendarList({ calendars }: CalendarListProps) {
                     >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                          {formatWeekRange(calendar.weekStart, calendar.weekEnd)}
+                          {formatWeekRange(
+                            calendar.weekStart,
+                            calendar.weekEnd
+                          )}
                         </span>
                         <QualityScore score={calendar.qualityScore} size="sm" />
                       </div>
