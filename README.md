@@ -2,9 +2,12 @@
 
 An intelligent content calendar automation tool for Reddit marketing campaigns. Generate natural-looking posts and coordinated comments across multiple personas to drive engagement and inbound leads.
 
+**🔗 Live Demo:** [ogtools-reddit-mastermind.vercel.app](https://ogtools-reddit-mastermind.vercel.app/)
+
 ## The Problem
 
 Creating authentic Reddit engagement is time-consuming:
+
 - Manually planning posts across multiple subreddits
 - Coordinating multiple accounts to comment naturally
 - Ensuring conversations don't look manufactured
@@ -77,11 +80,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-| Variable | Used In | Purpose |
-|----------|---------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | `lib/supabase.ts`, `lib/supabase-server.ts` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `lib/supabase.ts`, `lib/supabase-server.ts` | Supabase anonymous key |
-| `OPENAI_API_KEY` | `lib/openai.ts` | OpenAI API authentication |
+| Variable                        | Used In                                     | Purpose                   |
+| ------------------------------- | ------------------------------------------- | ------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | `lib/supabase.ts`, `lib/supabase-server.ts` | Supabase project URL      |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `lib/supabase.ts`, `lib/supabase-server.ts` | Supabase anonymous key    |
+| `OPENAI_API_KEY`                | `lib/openai.ts`                             | OpenAI API authentication |
 
 ### 3. Database Setup
 
@@ -108,6 +111,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ### Deterministic Scheduling
 
 Uses Mulberry32 PRNG seeded with `company_id + week_start` for reproducible schedules:
+
 - Same inputs → same time slots
 - Spreads posts across weekdays
 - Avoids clustering
@@ -116,13 +120,13 @@ Uses Mulberry32 PRNG seeded with `company_id + week_start` for reproducible sche
 
 ```typescript
 // Comment timing (must be 15+ min after post)
-checkCommentTiming(threads)
+checkCommentTiming(threads);
 
 // Topic similarity (Jaccard coefficient < 0.5)
-detectTopicOverlap(threads)
+detectTopicOverlap(threads);
 
 // Conversation patterns (no ping-pong, no self-replies)
-detectAwkwardBackAndForth(threads)
+detectAwkwardBackAndForth(threads);
 ```
 
 ### Risk Assessment
@@ -153,12 +157,6 @@ detectAwkwardBackAndForth(threads)
     │   └── quality.ts    # Phase 6
     └── openai.ts         # LLM client
 ```
-
-## Screenshots
-
-| Dashboard | Calendar View | Generation Progress |
-|-----------|---------------|---------------------|
-| Company list, recent calendars, stats | Weekly grid with posts & comments | Real-time SSE progress tracking |
 
 ---
 

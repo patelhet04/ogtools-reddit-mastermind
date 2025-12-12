@@ -140,10 +140,10 @@ export default function CalendarDetailPage() {
       `/api/calendar-items/${updatedItem.id}`,
       "PATCH",
       {
-        title: updatedItem.title ?? null,
-        body: updatedItem.content,
-        scheduled_at: updatedItem.scheduledTime,
-        status: updatedItem.status,
+      title: updatedItem.title ?? null,
+      body: updatedItem.content,
+      scheduled_at: updatedItem.scheduledTime,
+      status: updatedItem.status,
       }
     );
 

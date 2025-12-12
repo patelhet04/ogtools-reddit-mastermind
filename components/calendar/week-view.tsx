@@ -47,13 +47,13 @@ export function WeekView({
       {/* Desktop Week View */}
       <div className="hidden lg:block">
         <div className="grid grid-cols-7 gap-3">
-          {dayNames.map((day, index) => {
-            const dayDate = getDayDate(index);
-            const items = getItemsForDay(index);
+        {dayNames.map((day, index) => {
+          const dayDate = getDayDate(index);
+          const items = getItemsForDay(index);
             const isToday =
               new Date().toDateString() === dayDate.toDateString();
 
-            return (
+          return (
               <div key={day} className="min-h-[480px]">
                 {/* Day Header */}
                 <div
@@ -65,31 +65,31 @@ export function WeekView({
                   )}
                 >
                   <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
-                    {day}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-lg font-semibold",
+                  {day}
+                </p>
+                <p
+                  className={cn(
+                    "text-lg font-semibold",
                       isToday ? "text-primary" : "text-foreground"
-                    )}
-                  >
-                    {dayDate.getDate()}
-                  </p>
-                </div>
+                  )}
+                >
+                  {dayDate.getDate()}
+                </p>
+              </div>
 
                 {/* Cards with spacing */}
-                <div className="space-y-2">
-                  {items.map((item) => (
-                    <CalendarItemCard
-                      key={item.id}
-                      item={item}
-                      onClick={() => setSelectedItem(item)}
-                    />
-                  ))}
-                </div>
+              <div className="space-y-2">
+                {items.map((item) => (
+                  <CalendarItemCard
+                    key={item.id}
+                    item={item}
+                    onClick={() => setSelectedItem(item)}
+                  />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
         </div>
       </div>
 
