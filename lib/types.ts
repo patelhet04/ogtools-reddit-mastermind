@@ -29,6 +29,14 @@ export interface UICalendarItem {
   mentionsProduct: boolean;
 }
 
+export interface QualityBreakdown {
+  overall: number;
+  naturalness: number;
+  coverage: number;
+  risk_level: number;
+  issues: string[];
+}
+
 export interface UICalendar {
   id: string;
   companyId: string;
@@ -38,6 +46,7 @@ export interface UICalendar {
   weekEnd: string; // ISO string
   status: ContentCalendarStatus;
   qualityScore: number;
+  qualityBreakdown?: QualityBreakdown;
   items: Array<Pick<UICalendarItem, "id" | "type" | "status">>;
 }
 

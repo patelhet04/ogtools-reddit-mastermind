@@ -72,6 +72,7 @@ export async function GET(
     },
   }));
 
+  const qualityData = data.quality_score ?? {};
   const response: UICalendar & { itemsFull: UICalendarItem[] } = {
     id: data.id,
     companyId: data.company_id,
@@ -80,7 +81,14 @@ export async function GET(
     weekStart: range.start,
     weekEnd: range.end,
     status: data.status ?? "draft",
-    qualityScore: data.quality_score?.overall ?? 0,
+    qualityScore: qualityData.overall ?? 0,
+    qualityBreakdown: {
+      overall: qualityData.overall ?? 0,
+      naturalness: qualityData.naturalness ?? 0,
+      coverage: qualityData.coverage ?? 0,
+      risk_level: qualityData.risk_level ?? 0,
+      issues: qualityData.issues ?? [],
+    },
     items: items.map((it) => ({ id: it.id, type: it.type, status: it.status })),
     itemsFull: items,
   };

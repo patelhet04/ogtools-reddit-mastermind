@@ -25,8 +25,22 @@ export function orchestratePersonas(opts: {
     const numComments = randInt(rand, 2, 4);
     const comments: PlannedThread["comments"] = [];
 
+    let lastPersonaIdx = -1; // Track last persona to avoid ping-pong
+
     for (let i = 0; i < numComments; i++) {
-      const persona = commenters[(idx + i) % commenters.length];
+      // Pick a random commenter, but avoid same persona twice in a row (prevents ping-pong)
+      let personaIdx: number;
+      if (commenters.length === 1) {
+        personaIdx = 0;
+      } else {
+        // Pick randomly, but not the same as last
+        do {
+          personaIdx = randInt(rand, 0, commenters.length - 1);
+        } while (personaIdx === lastPersonaIdx && commenters.length > 1);
+      }
+      lastPersonaIdx = personaIdx;
+      const persona = commenters[personaIdx];
+
       const mentionsProduct = i === 0 ? true : rand() > 0.55;
       const isReplyToComment = i > 0 && rand() > 0.4;
       const replyToIndex = isReplyToComment ? Math.max(0, i - 1) : null;

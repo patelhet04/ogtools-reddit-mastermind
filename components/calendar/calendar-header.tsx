@@ -4,11 +4,18 @@ import { useState } from "react";
 import type { ContentCalendarStatus } from "@/lib/supabase";
 import type { UICalendar } from "@/lib/types";
 import { QualityScore } from "@/components/ui/quality-score";
+import { QualityBreakdownCard } from "@/components/ui/quality-breakdown";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Button } from "@/components/ui/button";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Check,
   RefreshCw,
   CalendarPlus,
@@ -120,7 +127,27 @@ export function CalendarHeader({
         </div>
         <div className="flex items-center gap-2">
           <StatusBadge status={calendar.status} />
-          <QualityScore score={calendar.qualityScore} size="sm" />
+          {calendar.qualityBreakdown ? (
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="flex items-center gap-2 px-2 py-1 rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-muted/50 transition-all cursor-pointer group">
+                  <QualityScore score={calendar.qualityScore} size="sm" />
+                  <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors hidden sm:inline">
+                    View breakdown
+                  </span>
+                  <ChevronDown className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-0" align="start">
+                <QualityBreakdownCard
+                  breakdown={calendar.qualityBreakdown}
+                  className="border-0 shadow-none"
+                />
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <QualityScore score={calendar.qualityScore} size="sm" />
+          )}
         </div>
       </div>
 

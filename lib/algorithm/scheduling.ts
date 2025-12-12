@@ -25,8 +25,11 @@ function calculateDelay(
   commentIndex: number,
   isReply: boolean
 ) {
+  // First comment: 20-60 min after post
   if (commentIndex === 0) return randInt(rand, 20, 60);
-  if (isReply) return randInt(rand, 10, 30);
+  // Reply to comment: 15-45 min (must be >= 15 to pass quality check)
+  if (isReply) return randInt(rand, 15, 45);
+  // New top-level comment: 30-240 min
   return randInt(rand, 30, 240);
 }
 
