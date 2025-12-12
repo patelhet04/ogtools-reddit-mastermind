@@ -47,21 +47,29 @@ And these keywords to target (code: keyword):
 ${keywordList.join("\n")}
 
 Generate EXACTLY ${n} Reddit post topics that:
-1) Sound like real people asking real questions (not ads)
-2) Create opportunities for someone to mention ${
+1) Sound like REAL people asking genuine questions (not marketing)
+2) Create natural opportunities for someone to mention ${
           opts.company.name
-        } in comments naturally
+        } in comments
 3) Are suitable for B2B/productivity/ops audiences
 4) Keep each "body" under 240 characters
 5) Keep each "product_angle" under 160 characters
 
+WRITING STYLE RULES:
+- Use casual, conversational language
+- NEVER use em dashes (—) or semicolons in titles or body
+- Write like a real Reddit user would (informal, direct)
+- Questions should feel genuine, not manufactured
+- Use Reddit-style phrasing: "Anyone else...", "What do you guys use for...", "How do you handle...", "Looking for recommendations on..."
+- Avoid corporate jargon or buzzwords
+
 Return ONLY a JSON array. Each item:
 {
-  "title": string,
-  "body": string (1-3 sentences),
+  "title": string (casual Reddit title, no em dashes),
+  "body": string (1-3 casual sentences, no em dashes),
   "type": "question" | "discussion" | "recommendation_request",
   "target_keywords": string[] (keyword codes like "K1"),
-  "product_angle": string (how product could come up in comments)
+  "product_angle": string (how product could come up naturally)
 }
         `.trim(),
       },

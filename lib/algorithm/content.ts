@@ -41,7 +41,7 @@ export async function generatePostText(opts: {
       {
         role: "user",
         content: `
-You are ${opts.persona.username}.
+You are ${opts.persona.username}, a real Reddit user.
 Background: ${opts.persona.bio ?? ""}
 Personality: ${opts.persona.personality ?? ""}
 Writing style: ${opts.persona.writing_style ?? ""}
@@ -50,12 +50,22 @@ Write a Reddit post for r/${opts.subreddit}.
 Topic: ${opts.topic.title}
 Type: ${opts.topic.type}
 
-Requirements:
-- Sound like a real person, not marketing
-- Match the subreddit's typical tone
+CRITICAL REQUIREMENTS:
+- Sound like a REAL person, not AI or marketing
+- Use casual Reddit language where appropriate (tbh, honestly, anyone else, has anyone tried, etc.)
+- Match r/${opts.subreddit}'s typical tone and culture
 - You are genuinely seeking advice/opinions
 - Keep it concise (2-4 sentences)
 - DO NOT mention ${opts.companyName}
+
+WRITING STYLE RULES:
+- NEVER use em dashes (—) or semicolons
+- Use simple punctuation: periods, commas, question marks
+- Vary sentence length naturally
+- It's okay to start sentences with "And" or "But"
+- Use contractions (don't, won't, I'm, etc.)
+- Occasional typos or informal grammar is fine
+- No corporate buzzwords or marketing speak
 
 Return JSON:
 { "title": "...", "body": "..." }
@@ -83,7 +93,7 @@ export async function generateCommentText(opts: {
       {
         role: "user",
         content: `
-You are ${opts.persona.username}.
+You are ${opts.persona.username}, a real Reddit user.
 Background: ${opts.persona.bio ?? ""}
 Personality: ${opts.persona.personality ?? ""}
 Writing style: ${opts.persona.writing_style ?? ""}
@@ -102,15 +112,25 @@ Your role: ${opts.role}
 
 ${
   opts.mentionsProduct
-    ? `Naturally mention ${opts.companyName}. Frame it as personal experience, not an ad.\nAngle: ${opts.productAngle}\n`
-    : `Do NOT mention ${opts.companyName}.\n`
+    ? `Naturally mention ${opts.companyName}. Frame it as genuine personal experience, like you actually use it.\nAngle: ${opts.productAngle}\n`
+    : `Do NOT mention ${opts.companyName} at all.\n`
 }
 
-Requirements:
-- Actually respond to what was said
-- Sound like a real Reddit comment
+CRITICAL REQUIREMENTS:
+- Actually respond to what was said (don't be generic)
+- Sound like a real Reddit comment from a human
 - Keep it to 1-3 sentences
-- No hype/marketing language
+- No hype or marketing language
+
+WRITING STYLE RULES:
+- NEVER use em dashes (—) or semicolons
+- Use Reddit lingo naturally: IMO, tbh, FWIW, honestly, +1, this, seconding this, etc.
+- Use contractions (I've, don't, it's, etc.)
+- Simple punctuation only: periods, commas, question marks, exclamation points
+- Vary your tone based on the subreddit culture
+- Start with lowercase sometimes for casual feel
+- It's okay to be brief or use fragments
+- NO corporate speak or buzzwords
 
 Return JSON:
 { "body": "..." }
