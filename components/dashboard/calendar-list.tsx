@@ -38,11 +38,11 @@ function groupByCompany(calendars: UICalendar[]): GroupedCalendar[] {
     groups[cal.companyId].weeks.push(cal);
   }
 
-  // Sort weeks by date within each company
+  // Sort weeks by date within each company (newest first)
   for (const group of Object.values(groups)) {
     group.weeks.sort(
       (a, b) =>
-        new Date(a.weekStart).getTime() - new Date(b.weekStart).getTime()
+        new Date(b.weekStart).getTime() - new Date(a.weekStart).getTime()
     );
   }
 
